@@ -35,8 +35,13 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getProductDetails(productId: Int): Flow<Result<Product>> {
         return flow {
-            emit(Result.success(productDao.getProductById(productId)))
-        }
+            val product = productDao.getProductById(productId)
+            if (product != null) {
+                emit(Result.success(product))
+            } else {
+                emit(Result.failure(Exception(Constants.EMPTY_PRODUCTS_ERROR_MSG)))
+            }
+        }.flowOn(ioDispatcher)
     }
 
     override fun getProducts(): Flow<Result<List<Product>>> {
@@ -47,7 +52,7 @@ class ProductRepositoryImpl @Inject constructor(
             } else {
                 emit(Result.success(products))
             }
-        }
+        }.flowOn(ioDispatcher)
     }
 
 }

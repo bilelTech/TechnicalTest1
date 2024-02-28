@@ -23,5 +23,5 @@ interface ProductDao {
 
 
     @Query("SELECT * FROM products WHERE id=:id")
-    fun getProductById(id: Int): Product
+    fun getProductById(id: Int): Product?
 }

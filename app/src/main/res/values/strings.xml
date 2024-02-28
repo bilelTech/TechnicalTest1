@@ -14,4 +14,13 @@
     <string name="error_message">an error occurred</string>
     <string name="no_product_message">No Product</string>
     <string name="take_a_picture">Take a Picture</string>
+
+    <!-- Product details screen -->
+    <string name="description">Description</string>
+    <string name="price">Price</string>
+    <string name="discountPercentage">DiscountPercentage</string>
+    <string name="rating">Rating</string>
+    <string name="stock">Stock</string>
+    <string name="brand">Brand</string>
+    <string name="category">Category</string>
 </resources>

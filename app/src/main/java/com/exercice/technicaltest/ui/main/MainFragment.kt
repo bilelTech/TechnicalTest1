@@ -6,14 +6,15 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exercice.technicaltest.R
 import com.exercice.technicaltest.adapters.ProductAdapter
@@ -66,7 +67,15 @@ class MainFragment : Fragment() {
      * on item of recyclview
      */
     private fun onProductClicked(product: Product) {
+        navigateToProductDetails(productId = product.id)
+    }
 
+    private fun navigateToProductDetails(productId: Int) {
+        val bundle = Bundle()
+        bundle.putInt(Constants.KEY_PRODUCT_ID, productId)
+
+        findNavController()
+            .navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
     }
 
     /**
@@ -75,9 +84,9 @@ class MainFragment : Fragment() {
     private fun photoTakenCallback(bitmap: Bitmap?) {
         // convert bitmap to base64
         Base64Image.encode(bitmap) { base64 ->
-            base64?.let {
+            base64?.let { image ->
                 // success
-
+                mainViewModel.addProduct(image)
             }
         }
     }
@@ -89,9 +98,13 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
 
     }
 
@@ -117,6 +130,10 @@ class MainFragment : Fragment() {
     private fun handleObserve() {
         mainViewModel.products.observe(viewLifecycleOwner) { products ->
             recyclerViewAdapter.submitList(products)
+        }
+
+        mainViewModel.productdetails.observe(viewLifecycleOwner) { product ->
+            navigateToProductDetails(product.id)
         }
 
         mainViewModel.loading.observe(viewLifecycleOwner) { isVisible ->

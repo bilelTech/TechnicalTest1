@@ -1,6 +1,7 @@
 package com.exercice.technicaltest.di
 
 import com.exercice.technicaltest.domain.repository.ProductRepository
+import com.exercice.technicaltest.domain.usecases.AddProductUseCase
 import com.exercice.technicaltest.domain.usecases.GetProductDetailsUseCase
 import com.exercice.technicaltest.domain.usecases.GetProductsUseCase
 import dagger.Module
@@ -12,6 +13,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object UseCaseModule {
+
+    @Singleton
+    @Provides
+    fun provideAddProductUseCase(
+        productRepository: ProductRepository
+    ): AddProductUseCase {
+        return AddProductUseCase(productRepository)
+    }
+
     @Singleton
     @Provides
     fun provideGetProductDetailsUseCase(

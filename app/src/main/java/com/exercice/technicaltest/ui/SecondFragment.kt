@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.exercice.technicaltest.R
+import com.exercice.technicaltest.constants.Constants
 import com.exercice.technicaltest.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +35,7 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val productId = arguments?.getInt(Constants.KEY_PRODUCT_ID) ?: 0
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
