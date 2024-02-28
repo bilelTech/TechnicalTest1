@@ -1,7 +1,7 @@
 package com.exercice.technicaltest.di
 
 import com.exercice.technicaltest.BuildConfig
-import com.exercice.technicaltest.data.RemoteApi
+import com.exercice.technicaltest.data.remote.RemoteApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
