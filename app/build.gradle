@@ -108,4 +108,8 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.1'
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'org.amshove.kluent:kluent:1.60'
+
+    //convert Base64 to image and vise verse
+    implementation 'com.pixelcarrot.base64image:base64image:1.0.0'
+
 }
