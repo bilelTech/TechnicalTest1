@@ -15,4 +15,4 @@ data class Product(
     val stock: Int,
     val brand: String,
     val category: String,
-    val thumbnail: String)
+    var thumbnail: String)

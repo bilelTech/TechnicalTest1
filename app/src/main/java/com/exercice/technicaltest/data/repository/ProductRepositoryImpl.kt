@@ -1,5 +1,6 @@
 package com.exercice.technicaltest.data.repository
 
+import com.exercice.technicaltest.constants.Constants
 import com.exercice.technicaltest.data.remote.RemoteApi
 import com.exercice.technicaltest.data.local.dao.ProductDao
 import com.exercice.technicaltest.di.IoDispatcher
@@ -23,19 +24,9 @@ class ProductRepositoryImpl @Inject constructor(
             val products = productDao.getProducts()
             val size = if (products.isEmpty()) 1 else products.size + 1
             val product = remoteApi.getProductDetails(size)
+            product.thumbnail = image
             productDao.insert(
-                Product(
-                    product.id,
-                    product.title,
-                    product.description,
-                    product.price,
-                    product.discountPercentage,
-                    product.rating,
-                    product.stock,
-                    product.brand,
-                    product.category,
-                    product.thumbnail
-                )
+                product
             )
             emit(Result.success(product))
         }.catch { emit(Result.failure(it)) }
@@ -50,7 +41,12 @@ class ProductRepositoryImpl @Inject constructor(
 
     override fun getProducts(): Flow<Result<List<Product>>> {
         return flow {
-            emit(Result.success(productDao.getProducts()))
+            val products = productDao.getProducts()
+            if (products.isEmpty()) {
+                emit(Result.failure(Exception(Constants.EMPTY_PRODUCTS_ERROR_MSG)))
+            } else {
+                emit(Result.success(products))
+            }
         }
     }
 

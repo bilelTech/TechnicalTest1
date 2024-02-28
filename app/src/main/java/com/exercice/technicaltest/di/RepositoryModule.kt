@@ -2,6 +2,7 @@ package com.exercice.technicaltest.di
 
 import com.exercice.technicaltest.data.local.dao.ProductDao
 import com.exercice.technicaltest.data.remote.RemoteApi
+import com.exercice.technicaltest.data.repository.ProductRepositoryImpl
 import com.exercice.technicaltest.domain.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,6 @@ object RepositoryModule {
         productDao: ProductDao,
         @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): ProductRepository {
-        return provideProductRepositoryImpl(remoteApi, productDao, ioDispatcher)
+        return ProductRepositoryImpl(remoteApi, productDao, ioDispatcher)
     }
 }

@@ -9,4 +9,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="price_label">%1$s $</string>
+    <string name="error_message">an error occurred</string>
+    <string name="no_product_message">No Product</string>
+    <string name="take_a_picture">Take a Picture</string>
 </resources>
