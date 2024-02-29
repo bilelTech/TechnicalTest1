@@ -116,7 +116,7 @@ class MainFragment : Fragment() {
     }
 
     private fun handleClick() {
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             handleTakeProductPhoto()
         }
     }
