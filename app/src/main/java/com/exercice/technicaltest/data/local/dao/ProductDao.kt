@@ -24,4 +24,7 @@ interface ProductDao {
 
     @Query("SELECT * FROM products WHERE id=:id")
     fun getProductById(id: Int): Product?
+
+    @Query("DELETE FROM products")
+    fun clear()
 }
