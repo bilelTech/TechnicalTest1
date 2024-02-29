@@ -26,7 +26,7 @@ applications : contain the application Class
 
 Screenshots
 -----------
-![MainFragment](screenshots/products_screen.png.png "list of products")
+![MainFragment](screenshots/products_screen.png "list of products")
 ![ProductDetailsFragment](screenshots/product_details_screen.png "product details")
 
 Application features
