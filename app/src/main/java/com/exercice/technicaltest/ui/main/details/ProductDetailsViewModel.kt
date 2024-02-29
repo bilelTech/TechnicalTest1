@@ -1,12 +1,11 @@
-package com.exercice.technicaltest.ui.main
+package com.exercice.technicaltest.ui.main.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.exercice.technicaltest.constants.Constants
-import com.exercice.technicaltest.domain.usecases.AddProductUseCase
-import com.exercice.technicaltest.domain.usecases.GetProductsUseCase
+import com.exercice.technicaltest.domain.usecases.GetProductDetailsUseCase
 import com.exercice.technicaltest.models.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -16,13 +15,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val getProductsUseCase: GetProductsUseCase,
-    private val addProductUseCase: AddProductUseCase
+class ProductDetailsViewModel @Inject constructor(
+    private val getProductDetailsUseCase: GetProductDetailsUseCase,
 ) : ViewModel() {
-    private val _products = MutableLiveData<List<Product>>()
-    val products: LiveData<List<Product>> = _products
 
+    /**
+     * variables
+     */
     private val _productdetails = MutableLiveData<Product>()
     val productdetails: LiveData<Product> = _productdetails
 
@@ -34,34 +33,11 @@ class MainViewModel @Inject constructor(
         get() = _loading
 
     /**
-     * get products
+     * get product details
      */
-    fun getProducts() {
+    fun getProductDetails(productId: Int) {
         viewModelScope.launch {
-            getProductsUseCase.getProducts()
-                .onStart {
-                    _loading.value = true
-                }.onCompletion {
-                    _loading.value = false
-                }.catch {
-                    _anError.value = it.message
-                }.collect { productsList ->
-                    if (productsList.isFailure) {
-                        _anError.value = Constants.EMPTY_PRODUCTS_ERROR_MSG
-                    } else {
-                        _products.value = productsList.getOrNull()
-                    }
-                }
-        }
-    }
-
-    /**
-     * add products
-     * to local database
-     */
-    fun addProduct(image: String) {
-        viewModelScope.launch {
-            addProductUseCase.addProduct(image)
+            getProductDetailsUseCase.getProductDetails(productId)
                 .onStart {
                     _loading.value = true
                 }.onCompletion {

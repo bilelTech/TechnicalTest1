@@ -103,12 +103,6 @@ class MainFragment : Fragment() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-
     /**
      * called when
      * the view created
