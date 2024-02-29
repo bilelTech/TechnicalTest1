@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/MainFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.exercice.technicaltest.ui.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/MainFragment"
+        android:name="com.exercice.technicaltest.ui.main.MainFragment"
+        android:label="@string/products_fragment_label"
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,12 +17,17 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.exercice.technicaltest.ui.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:name="com.exercice.technicaltest.ui.main.details.ProductDetailsFragment"
+        android:label="@string/product_details_fragment_label"
+        tools:layout="@layout/fragment_product_details">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/MainFragment"
+            app:popUpTo="@+id/MainFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="ProductId"
+            app:argType="integer" />
     </fragment>
 </navigation>

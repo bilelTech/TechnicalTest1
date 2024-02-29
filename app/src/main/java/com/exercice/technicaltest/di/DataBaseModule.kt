@@ -3,7 +3,7 @@ package com.exercice.technicaltest.di
 import android.content.Context
 import androidx.room.Room
 import com.exercice.technicaltest.data.local.AppDataBase
-import com.exercice.technicaltest.data.local.ProductDao
+import com.exercice.technicaltest.data.local.dao.ProductDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.exercice.technicaltest.data.local
+package com.exercice.technicaltest.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -20,4 +20,8 @@ interface ProductDao {
     // get list of products from database
     @Query("SELECT * FROM products")
     fun getProducts(): List<Product>
+
+
+    @Query("SELECT * FROM products WHERE id=:id")
+    fun getProductById(id: Int): Product?
 }
