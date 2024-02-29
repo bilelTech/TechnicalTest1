@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.exercice.technicaltest.constants.Constants
 import com.exercice.technicaltest.domain.usecases.GetProductDetailsUseCase
 import com.exercice.technicaltest.models.Product
-import com.exercice.technicaltest.ui.main.MainViewModel
 import com.exercice.technicaltest.ui.main.details.ProductDetailsViewModel
 import com.exercice.technicaltest.utils.getOrAwaitValue
 import com.nhaarman.mockitokotlin2.any

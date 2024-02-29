@@ -1,7 +1,6 @@
 package com.exercice.technicaltest.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
 import com.exercice.technicaltest.data.local.dao.ProductDao
 import com.exercice.technicaltest.data.remote.RemoteApi
 import com.exercice.technicaltest.models.Product
@@ -56,7 +55,6 @@ class ProductRepositoryImplTest {
     @Test
     fun addProductSuccess() = runBlocking {
         val products = ArrayList<Product>();
-        val productsLiveData = MutableLiveData<List<Product>>()
         val product = Product(
             1,
             "title",
@@ -72,7 +70,7 @@ class ProductRepositoryImplTest {
         products.add(
             product
         )
-        Mockito.`when`(productDao.getProducts()).thenReturn(productsLiveData)
+        Mockito.`when`(productDao.getProducts()).thenReturn(products)
         Mockito.`when`(remoteApi.getProductDetails(any())).thenReturn(product)
         val flow = productRepositoryImpl.addProduct("test")
         flow.collect { result: Result<Product> ->
@@ -86,7 +84,6 @@ class ProductRepositoryImplTest {
     @Test
     fun addProductFailed() = runBlocking {
         val products = ArrayList<Product>();
-        val productsLiveData = MutableLiveData<List<Product>>()
         val product = Product(
             1,
             "title",
@@ -102,7 +99,7 @@ class ProductRepositoryImplTest {
         products.add(
             product
         )
-        Mockito.`when`(productDao.getProducts()).thenReturn(productsLiveData)
+        Mockito.`when`(productDao.getProducts()).thenReturn(products)
         Mockito.`when`(remoteApi.getProductDetails(any())).thenReturn(null)
         val flow = productRepositoryImpl.addProduct("test")
         flow.collect { result: Result<Product> ->
@@ -156,7 +153,6 @@ class ProductRepositoryImplTest {
     @Test
     fun getProductsSuccess() = runBlocking {
         val products = ArrayList<Product>();
-        val productsLiveData = MutableLiveData<List<Product>>()
         products.add(
             Product(
                 1,
@@ -171,8 +167,7 @@ class ProductRepositoryImplTest {
                 "th"
             )
         )
-        productsLiveData.value = products
-        Mockito.`when`(productDao.getProducts()).thenReturn(productsLiveData)
+        Mockito.`when`(productDao.getProducts()).thenReturn(products)
         // WHEN
         val flow = productRepositoryImpl.getProducts()
         flow.collect { result: Result<List<Product>> ->
@@ -187,9 +182,7 @@ class ProductRepositoryImplTest {
     @Test
     fun getProductsFailed() = runBlocking {
         val products = ArrayList<Product>();
-        val productsLiveData = MutableLiveData<List<Product>>()
-        productsLiveData.value = products
-        Mockito.`when`(productDao.getProducts()).thenReturn(productsLiveData)
+        Mockito.`when`(productDao.getProducts()).thenReturn(products)
         // WHEN
         val flow = productRepositoryImpl.getProducts()
         flow.collect { result: Result<List<Product>> ->

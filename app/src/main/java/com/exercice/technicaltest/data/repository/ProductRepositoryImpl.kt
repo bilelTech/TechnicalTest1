@@ -21,7 +21,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun addProduct(image: String): Flow<Result<Product>> {
         return flow {
-            val products = productDao.getProducts().value.orEmpty()
+            val products = productDao.getProducts()
             val size = if (products.isEmpty()) 1 else products.size + 1
             val product = remoteApi.getProductDetails(size)
             product.thumbnail = image
@@ -46,7 +46,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     override fun getProducts(): Flow<Result<List<Product>>> {
         return flow {
-            val products = productDao.getProducts().value.orEmpty()
+            val products = productDao.getProducts()
             if (products.isEmpty()) {
                 emit(Result.failure(Exception(Constants.EMPTY_PRODUCTS_ERROR_MSG)))
             } else {
